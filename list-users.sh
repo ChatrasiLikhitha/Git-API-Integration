@@ -24,13 +24,13 @@ function github_api_get {
 	local url="${API_URL}/${endpoint}"
 
 	#send a GET request to the GitHub API with authentication
-	curl -s -u "${USERNAME}:${TOKEN}""$url"
+	curl -s -u "${USERNAME}:${TOKEN}" "$url"
 }
 
 #Function to list users with read access to the repository
 
-fucntion list_users_with_read_access {
-	local endpoint="repo/${REPO_OWNER}/{REPO_NAME}/collaborators"
+function list_users_with_read_access {
+	local endpoint="repos/${REPO_OWNER}/${REPO_NAME}/collaborators"
 
 	#Fetch the list of collaborators on the repository
 	collaborators="$(github_api_get "$endpoint"|jq -r '.[]|select(.permissions.pull==true)|.login')"
